@@ -1,33 +1,89 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Task App CRUD
 
-## Getting Started
+Projeto desenvolvido para a disciplina de **Fundamentos de React** da **Pós Graduação JAVA com IA**.
 
-First, run the development server:
+## Sobre o projeto
+
+Aplicação web full-stack de gerenciamento de tarefas (CRUD) com autenticação de usuários. O projeto demonstra na prática os fundamentos do React integrado a um backend Node.js com banco de dados relacional.
+
+### Funcionalidades
+
+- Cadastro de usuários
+- Login com autenticação via JWT
+- Listagem, criação, edição e exclusão de tarefas (CRUD)
+
+### Tecnologias utilizadas
+
+**Frontend**
+- [Next.js 16](https://nextjs.org) com App Router
+- React 19
+- TypeScript
+- Tailwind CSS
+
+**Backend**
+- Node.js com Express
+- TypeScript
+- PostgreSQL
+- JWT (`jsonwebtoken`) para autenticação
+- `bcrypt` para hash de senhas
+
+**Infraestrutura**
+- Docker e Docker Compose para orquestração do banco de dados e backend
+
+## Estrutura do projeto
+
+```
+├── app/               # Páginas do Next.js (frontend)
+│   ├── page.tsx       # Página inicial
+│   ├── login/         # Tela de login
+│   ├── register/      # Tela de cadastro
+│   └── tasks/         # Tela de tarefas
+├── backend/           # API REST (Express + PostgreSQL)
+│   └── src/
+│       ├── index.ts   # Entrypoint do servidor
+│       ├── db.ts      # Conexão com o banco de dados
+│       └── routes/    # Rotas da API
+├── components/        # Componentes React reutilizáveis
+└── docker-compose.yml # Orquestração dos serviços
+```
+
+## Como executar
+
+### Pré-requisitos
+
+- [Node.js](https://nodejs.org) 18+
+- [Docker](https://www.docker.com) e Docker Compose
+
+### 1. Subir o backend e o banco de dados
+
+```bash
+docker compose up -d
+```
+
+Isso iniciará o PostgreSQL na porta `5432` e o backend na porta `3001`.
+
+### 2. Rodar o servidor de desenvolvimento do frontend
 
 ```bash
 npm run dev
-# or
+# ou
 yarn dev
-# or
+# ou
 pnpm dev
-# or
+# ou
 bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Abra [http://localhost:3000](http://localhost:3000) no navegador para acessar a aplicação.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Scripts disponíveis
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+| Comando         | Descrição                              |
+|-----------------|----------------------------------------|
+| `npm run dev`   | Inicia o servidor de desenvolvimento   |
+| `npm run build` | Gera o build de produção               |
+| `npm run start` | Inicia o servidor em modo produção     |
+| `npm run lint`  | Executa o linter no projeto            |
 
 ## Deploy on Vercel
 
