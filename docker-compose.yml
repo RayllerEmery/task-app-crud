@@ -7,6 +7,7 @@ services:
       - "3000:3000"
     environment:
       BACKEND_URL: http://backend:3001
+      JWT_SECRET: troque-este-segredo-em-producao
     depends_on:
       backend:
         condition: service_started
