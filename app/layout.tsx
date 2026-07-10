@@ -2,8 +2,10 @@ import type { Metadata } from "next";
 import "./globals.css";
 import Link from "next/link";
 
+const PAGE_TITLE = "Task App"
+
 export const metadata: Metadata = {
-  title: "Create Next App",
+  title: { default: PAGE_TITLE, template: `%s | ${PAGE_TITLE}` },
 };
 
 export default function RootLayout({
@@ -14,11 +16,11 @@ export default function RootLayout({
   return (
     <html lang="pt-BR" className="">
       <body className="">
-        <header className="fixed top-0 right-0 left-0 border-b text-center shadow-xl py-4">
+        <header className="fixed top-0 right-0 left-0 border-b border-[#e8e9e9] text-center shadow-xl py-4">
           <Link className="font-bold" href="/">Task App</Link>
         </header>
         <main className="mt-24 flex justify-center">{children}</main>
-        <footer className="text-center mt-4">
+        <footer className="text-center m-8">
           <p className="text-sm">Projeto desenvolvido durante o curso de Fundamentos Front-End em React</p>
         </footer>
       </body>

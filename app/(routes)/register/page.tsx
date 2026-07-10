@@ -1,7 +1,15 @@
+import type { Metadata } from "next";
 import { FormRegister } from "@/components/FormRegister";
-import { cookies } from "next/headers";
 import Link from "next/link";
 import { redirect } from "next/navigation";
+import { API_BASE_URL, validateEmail, validatePassword, setAuthCookie } from "@/libs/utils";
+
+
+const PAGE_TITLE = "Cadastro"
+
+export const metadata: Metadata = {
+    title: PAGE_TITLE,
+};
 
 export default function Register() {
 
@@ -16,53 +24,45 @@ export default function Register() {
             return "Preencha todos os campos para se cadastrar"
         }
 
-        if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
-            return "E-mail inválido"
-        }
+        const emailError = validateEmail(email)
+        if (emailError) return emailError
 
-        if (password.length < 6) {
-            return "A senha deve ter pelo menos 6 caracteres"
-        }
+        const passwordError = validatePassword(password)
+        if (passwordError) return passwordError
 
-        const res = await fetch("http://localhost:3001/register", {
+        const res = await fetch(`${API_BASE_URL}/register`, {
             method: "POST",
             body: JSON.stringify({ username, email, password }),
             headers: {
                 "Content-Type": "application/json"
             }
         })
-        
+
         const data = await res.json()
-        
+
         if (!res.ok) {
             return data.error || "Erro ao cadastrar usuário"
-        } 
+        }
 
         if (!data.token) {
             return data.message
         } else {
-            const cookieStore = await cookies()
-            cookieStore.set("token", data.token, {
-                httpOnly: true,
-                secure: true,
-                path: "/",
-                maxAge: 60 * 60 * 24
-            })
+            await setAuthCookie(data.token)
             redirect("/tasks")
         }
 
-        
+
     }
 
     return (
-        <div className="grid gap-y-4 px-8 min-w-100 py-12 bg-[#fdfcfc] rounded-3xl shadow-xl">
-            <h1 className="text-4xl text-center font-bold">Cadastro</h1>
+        <>
+            <h1 className="text-4xl text-center font-bold">{PAGE_TITLE}</h1>
             <div>
                 <FormRegister action={handleRegister} />
                 <div className="justify-center flex gap-2">
                     <Link className="w-full underline text-center" href="/login">Já tenho cadastro</Link>
                 </div>
             </div>
-        </div>
-    );
+        </>
+    )
 }

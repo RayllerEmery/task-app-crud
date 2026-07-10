@@ -6,13 +6,12 @@ import { FormInput } from "./FormInput"
 import FormButton from "./FormButton"
 import { FormError } from "./FormError"
 
-type FormRegisterProps = {
-    action: (_: string, formData: FormData) => Promise<string>
+type FormLoginProps = {
+action: (_: string, formData: FormData) => Promise<string>
 }
 
-export const FormRegister = ({ action }: FormRegisterProps) => {
+export const FormLogin = ({ action }: FormLoginProps) => {
 
-    const [username, setUsername] = useState("")
     const [email, setEmail] = useState("")
     const [password, setPassword] = useState("")
     const [showPassword, setShowPassword] = useState(false)
@@ -23,8 +22,6 @@ export const FormRegister = ({ action }: FormRegisterProps) => {
         <>
             {!isPending && <FormError message={errorMessage} />}
             <form action={formAction}>
-
-                <FormInput id="username" label="Usuário" value={username} setValue={setUsername} />
 
                 <FormInput id="email" label="E-mail" value={email} setValue={setEmail} />
 
@@ -44,7 +41,7 @@ export const FormRegister = ({ action }: FormRegisterProps) => {
                     }
                 />
 
-                <FormButton>{isPending ? "Cadastrando..." : "Cadastrar"}</FormButton>
+                <FormButton>{isPending ? "Entrando..." : "Entrar"}</FormButton>
             </form>
         </>
     );

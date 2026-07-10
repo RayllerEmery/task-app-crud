@@ -10,7 +10,11 @@ Aplicação web full-stack de gerenciamento de tarefas (CRUD) com autenticação
 
 - Cadastro de usuários
 - Login com autenticação via JWT
-- Listagem, criação, edição e exclusão de tarefas (CRUD)
+- Listagem, criação e exclusão de tarefas
+- Conclusão de tarefas (`PUT /tasks/:id/complete`)
+- Tasks concluídas exibidas ao final da lista
+- Indicação visual de tarefa concluída (texto riscado e opacidade reduzida)
+- Botão de deletar e checkbox desabilitados para tasks já concluídas
 
 ### Tecnologias utilizadas
 

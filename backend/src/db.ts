@@ -17,6 +17,17 @@ export async function initDb(): Promise<void> {
       created_at TIMESTAMP WITH TIME ZONE DEFAULT NOW()
     )
   `);
+
+  await pool.query(`
+    CREATE TABLE IF NOT EXISTS tasks (
+      id         SERIAL PRIMARY KEY,
+      user_id    INTEGER NOT NULL REFERENCES users(id) ON DELETE CASCADE,
+      task       TEXT NOT NULL,
+      completed  BOOLEAN NOT NULL DEFAULT FALSE,
+      created_at TIMESTAMP WITH TIME ZONE DEFAULT NOW()
+    )
+  `);
+
   console.log('Database initialized');
 }
 

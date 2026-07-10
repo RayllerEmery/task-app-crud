@@ -3,6 +3,7 @@ import cors from 'cors';
 import dotenv from 'dotenv';
 import { initDb } from './db';
 import authRouter from './routes/auth';
+import tasksRouter from './routes/tasks';
 
 dotenv.config();
 
@@ -14,6 +15,7 @@ app.use(express.json());
 
 // Rotas
 app.use('/', authRouter);
+app.use('/', tasksRouter);
 
 app.get('/health', (_req, res) => {
   res.json({ status: 'ok' });
